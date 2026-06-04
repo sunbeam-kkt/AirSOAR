@@ -313,12 +313,21 @@ We compare our method with human performance, rule-based baselines, and recent U
 
 ### Ablation Study
 
-| Variant                             |  NE ↓ |  SR ↑ | SPL ↑ | RSR ↑ | CRA ↑ | CVR ↓ |
-| ----------------------------------- | ----: | ----: | ----: | ----: | ----: | ----: |
-| PACE w/o privileged internalization |     - |     - |     - |     - |     - |     - |
-| PACE w/o counterfactual validation  |     - |     - |     - |     - |     - |     - |
-| PACE w/o affordance planning        |     - |     - |     - |     - |     - |     - |
-| **PACE full**                       | **-** | **-** | **-** | **-** | **-** | **-** |
+## 🧪 Ablation Study
+
+We conduct ablation studies to analyze the contribution of each component in our framework.
+
+| Method               |       NE↓ |       SR↑ |      OSR↑ |      SPL↑ |      RSR↑ |   HP-F1↑ |      CRA↑ |     CVR↓ |      TCR↓ |
+| -------------------- | --------: | --------: | --------: | --------: | --------: | -------: | --------: | -------: | --------: |
+| Direct Regression    |     81.58 |     27.63 |     50.18 |     24.20 |     47.84 |     0.46 |     70.10 |    14.20 |     54.72 |
+| w/o Internalization  |     74.82 |     30.74 |     57.06 |     28.12 |     55.28 |     0.54 |     84.90 |     9.35 |     62.18 |
+| w/o DAgger           |     68.35 |     33.71 |     61.27 |     30.48 |     64.36 |     0.78 |     85.40 |     9.48 |     66.04 |
+| w/o Causal Grounding |     76.10 |     29.68 |     55.34 |     27.32 |     61.04 |     0.72 |     72.60 |     9.02 |     60.91 |
+| w/o Affordance Field |     70.84 |     32.14 |     56.87 |     29.58 |     65.10 |     0.79 |     85.30 |    12.76 |     58.63 |
+| **Ours**             | **66.91** | **35.32** | **64.83** | **32.70** | **67.93** | **0.82** | **87.60** | **8.10** | **69.80** |
+
+**Metrics.** `NE` denotes navigation error. `SR` denotes success rate. `OSR` denotes oracle success rate. `SPL` denotes success weighted by path length. `RSR` denotes recovery success rate. `HP-F1` denotes help prediction F1 score. `CRA` denotes counterfactual route accuracy. `CVR` denotes collision violation rate. `TCR` denotes trajectory collision rate.
+
 
 ---
 
