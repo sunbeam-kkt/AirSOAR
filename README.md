@@ -4,7 +4,6 @@
   <a href="YOUR_PAPER_LINK"><img src="https://img.shields.io/badge/Paper-arXiv-red"></a>
   <a href="YOUR_PROJECT_PAGE_LINK"><img src="https://img.shields.io/badge/Project-Page-blue"></a>
   <a href="YOUR_DATASET_LINK"><img src="https://img.shields.io/badge/Dataset-Download-green"></a>
-  <a href="YOUR_LICENSE_LINK"><img src="https://img.shields.io/badge/License-MIT-yellow"></a>
 </p>
 
 <p align="center">
