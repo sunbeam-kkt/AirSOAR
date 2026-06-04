@@ -1,4 +1,4 @@
-# PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation
+<img width="239" height="27" alt="image" src="https://github.com/user-attachments/assets/50ac9820-fec2-4018-8740-e159d022ca61" /><img width="437" height="27" alt="image" src="https://github.com/user-attachments/assets/9d9ac312-502f-4fd1-a3f9-c18b3c54b2fe" /># PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation
 
 <p align="center">
   <a href="YOUR_PAPER_LINK"><img src="https://img.shields.io/badge/Paper-arXiv-red"></a>
@@ -333,38 +333,27 @@ We conduct ablation studies to analyze the contribution of each component in our
 
 ## 🗃️ Dataset
 
-We evaluate PACE on assistant-free UAV vision-language navigation benchmarks.
+We evaluate PACE on UAV-Need-Help dataset, you can download it follow **``TOWARDS REALISTIC UAV VISION-LANGUAGE NAVIGATION: PLATFORM, BENCHMARK, AND METHODOLOGY''**, which is accepted by ICLR-2025.
 
 Please organize the dataset as follows:
 
 ```text
-DATA_ROOT/
-├── train/
-│   ├── images/
-│   ├── instructions.json
-│   ├── trajectories.json
-│   └── privileged_signals.json
-├── val/
-│   ├── images/
-│   ├── instructions.json
-│   └── trajectories.json
-└── test/
-    ├── images/
-    ├── instructions.json
-    └── trajectories.json
+data/
+├── uav_dataset/
+│   ├── trainset_test.json
+│   ├── trainset_subset.json
+│   ├── trainset.json
+│   ├── unseen_valset.json
+│   └── seen_valset.json
+├── dagger_data/
+├── traj_train/
+│   ├── val_8s_8k.json
+│   └── train_balance.json
+└── meta/
+    ├── object_description.json
+    └── map_spawnarea.json
 ```
 
-Set the dataset path in the config file:
-
-```yaml
-dataset:
-  root: /path/to/DATA_ROOT
-  train_split: train
-  val_split: val
-  test_split: test
-```
-
----
 
 ## ⚙️ Installation
 
@@ -396,32 +385,30 @@ pip install matplotlib opencv-python imageio
 
 ---
 
+## 📈 Simulation environment configuration (headless)
+
+```bash
+cd airsim_plugin
+```
+
+```bash
+python AirVLNSimulatorServerTool.py --port 30000 --root_path /your_path/TravelUAV-main --gpus 0 
+```
+
+---
+
 ## 🚀 Training
 
 Train PACE with the following command:
 
 ```bash
-bash scripts/train.sh
+bash scripts/llm/train_uav_llm.sh
 ```
 
-Or run directly:
+Then generate the trajectory.
 
 ```bash
-python train.py \
-  --config configs/train_pace.yaml \
-  --data_root /path/to/DATA_ROOT \
-  --output_dir outputs/pace
-```
-
-Example training script:
-
-```bash
-CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py \
-  --config configs/train_pace.yaml \
-  --batch_size 32 \
-  --epochs 20 \
-  --lr 5e-5 \
-  --output_dir outputs/pace
+bash scripts/traj/train_traj_completion.sh
 ```
 
 ---
@@ -437,11 +424,11 @@ bash scripts/eval.sh
 Or run directly:
 
 ```bash
-python eval.py \
-  --config configs/eval_pace.yaml \
-  --checkpoint outputs/pace/checkpoints/best.pth \
-  --data_root /path/to/DATA_ROOT \
-  --split test
+bash scripts/dagger_NYC.sh
+```
+
+```bash
+bash scripts/eval.sh
 ```
 
 The evaluation script reports:
@@ -453,39 +440,16 @@ The evaluation script reports:
 * `CRA`: Counterfactual Route Accuracy
 * `CVR`: Collision Violation Rate
 
----
 
-## 📈 Visualization
-
-Visualize navigation trajectories, recovery behavior, and counterfactual route validation:
-
-```bash
-python visualize.py \
-  --checkpoint outputs/pace/checkpoints/best.pth \
-  --data_root /path/to/DATA_ROOT \
-  --save_dir outputs/visualization
-```
-
-Expected outputs:
-
-```text
-outputs/visualization/
-├── trajectory_vis/
-├── counterfactual_routes/
-├── recovery_cases/
-└── failure_cases/
-```
-
----
 
 ## 🧪 Pretrained Models
 
 Pretrained checkpoints will be released at:
 
-| Model      | Dataset       | Link        |
-| ---------- | ------------- | ----------- |
-| PACE-base  | UAV-Need-Help | Coming soon |
-| PACE-large | UAV-Need-Help | Coming soon |
+| Model           | Dataset       | Link        |
+| --------------- | ------------- | ----------- |
+| PACE-assistant  | UAV-Need-Help | Coming soon |
+| PACE            | UAV-Need-Help | Coming soon |
 
 After downloading, place checkpoints under:
 
@@ -501,35 +465,14 @@ checkpoints/
 To reproduce the main results in the paper:
 
 ```bash
-bash scripts/reproduce_main_results.sh
-```
-
-To reproduce the ablation study:
-
-```bash
-bash scripts/reproduce_ablation.sh
-```
-
-To reproduce visualization figures:
-
-```bash
-bash scripts/reproduce_figures.sh
+bash scripts/metric.sh
 ```
 
 ---
 
 ## 📝 Citation
 
-If you find this repository useful, please consider citing our paper:
-
-```bibtex
-@inproceedings{your2027pace,
-  title={PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation},
-  author={Author One and Author Two and Author Three},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-  year={2027}
-}
-```
+If you find this repository useful, please consider citing our paper when it was accepted in AAAI-2027.
 
 ---
 
@@ -540,19 +483,3 @@ This project builds upon prior research in vision-language navigation, UAV navig
 We thank the authors of related UAV-VLN benchmarks and open-source navigation frameworks for their valuable contributions to the community.
 
 ---
-
-## 📄 License
-
-This project is released under the `MIT License`. Please see `LICENSE` for more details.
-
----
-
-## 📬 Contact
-
-For questions, please contact:
-
-```text
-YOUR_NAME: your_email@example.com
-```
-
-or open an issue in this repository.
