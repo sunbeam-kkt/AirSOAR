@@ -99,11 +99,6 @@ After route validation, PACE grounds the decision into UAV-executable motion. Th
 
 ## 📊 Main Results
 
-### Comparison with Existing Methods
-
-
-## 📊 Main Results
-
 We compare our method with human performance, rule-based baselines, and recent UAV vision-language navigation methods. The results are reported on **Full**, **Easy**, and **Hard** splits.
 
 <table>
