@@ -14,11 +14,11 @@
 
 ## 📌 Overview
 
-This repository provides the official implementation of **PACE**, a privileged-assistance-driven framework for **assistant-free UAV vision-language navigation**.
+This repository provides the official implementation of **AirSOAR**, a privileged-assistance-driven framework for **assistance internalization UAV vision-language navigation**.
 
 Existing UAV-VLN agents often rely on external assistance during navigation, such as corrective guidance, route hints, or intervention signals. However, such assistance is usually unavailable during real deployment. PACE addresses this gap by converting privileged runtime support into an internal decision capability that can be used without external help at test time.
 
-PACE contains three key components:
+AirSOAR contains three key components:
 
 1. **Privileged Assistance Internalization**
    Distills training-only privileged signals into an internal correction state, enabling the agent to recover from route deviation without external assistance.
@@ -35,7 +35,7 @@ PACE contains three key components:
 
 ![PACE](https://github.com/sunbeam-kkt/PACE/blob/master/Figure2.png)
 
-PACE first learns from privileged teacher signals during training. At deployment, the UAV agent no longer receives external assistance. Instead, it uses the learned internal assistance state to support self-correction, counterfactual reasoning, and executable trajectory planning.
+AirSOAR first learns from privileged teacher signals during training. At deployment, the UAV agent no longer receives external assistance. Instead, it uses the learned internal assistance state to support self-correction, counterfactual reasoning, and executable trajectory planning.
 
 ---
 
@@ -47,7 +47,7 @@ PACE first learns from privileged teacher signals during training. At deployment
 ## 📂 Repository Structure
 
 ```text
-PACE/                      
+AirSOAR/                      
 ├── Model/LLaMA-UAV                        # Pre-trained large language model
 │   ├── scripts
 │   └── tools
@@ -55,7 +55,7 @@ PACE/
 │   ├── meta
 │   ├── uav_dataset
 │   └── sample_dataset.py
-├── airsim_plugin/                         # PACE uses a simulation environment setup
+├── airsim_plugin/                         # AirSOAR uses a simulation environment setup
 │   ├── AirVLNSimulatorClientTool.py
 │   └──AirVLNSimulatorServerTool.py
 ├── scripts/                               # Method Validation
@@ -81,19 +81,19 @@ PACE/
 
 ### 1. Privileged Assistance Internalization
 
-During training, the agent has access to privileged assistance signals, such as correction hints, recovery labels, or teacher trajectories. PACE uses these signals only as supervision and distills them into an internal assistance state.
+During training, the agent has access to privileged assistance signals, such as correction hints, recovery labels, or teacher trajectories. AirSOAR uses these signals only as supervision and distills them into an internal assistance state.
 
 At test time, the agent does not receive any external help. The learned internal state supports recovery-critical decision making.
 
 ### 2. Counterfactual Route Validation
 
-UAV navigation in city-scale environments often contains visually similar landmarks and ambiguous route choices. PACE introduces counterfactual validation to compare the intended route with plausible alternatives.
+UAV navigation in city-scale environments often contains visually similar landmarks and ambiguous route choices. AirSOAR introduces counterfactual validation to compare the intended route with plausible alternatives.
 
 This module encourages the agent to answer not only “where should I go?” but also “why should I not choose another similar route?”
 
 ### 3. Affordance-aware Executable Planning
 
-After route validation, PACE grounds the decision into UAV-executable motion. The planner considers local feasibility, collision risk, visibility, and information gain to generate stable short-horizon trajectories.
+After route validation, AirSOAR grounds the decision into UAV-executable motion. The planner considers local feasibility, collision risk, visibility, and information gain to generate stable short-horizon trajectories.
 
 ---
 
@@ -325,7 +325,7 @@ We conduct ablation studies to analyze the contribution of each component in our
 
 ## 🗃️ Dataset
 
-We evaluate PACE on UAV-Need-Help dataset, you can download it follow **``TOWARDS REALISTIC UAV VISION-LANGUAGE NAVIGATION: PLATFORM, BENCHMARK, AND METHODOLOGY''**, which is accepted by ICLR-2025.
+We evaluate AirSOAR on UAV-Need-Help dataset, you can download it follow **``TOWARDS REALISTIC UAV VISION-LANGUAGE NAVIGATION: PLATFORM, BENCHMARK, AND METHODOLOGY''**, which is accepted by ICLR-2025.
 
 Please organize the dataset as follows:
 
@@ -352,15 +352,15 @@ data/
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/PACE.git
-cd PACE
+git clone https://github.com/YOUR_USERNAME/AirSOAR.git
+cd AirSOAR
 ```
 
 ### 2. Create environment
 
 ```bash
-conda create -n pace python=3.10 -y
-conda activate pace
+conda create -n airsoar python=3.10 -y
+conda activate airsoar
 ```
 
 ### 3. Install dependencies
@@ -384,14 +384,14 @@ cd airsim_plugin
 ```
 
 ```bash
-python AirVLNSimulatorServerTool.py --port 30000 --root_path /your_path/TravelUAV-main --gpus 0 
+python AirVLNSimulatorServerTool.py --port 30000 --root_path /your_path/airsoar --gpus 0 
 ```
 
 ---
 
 ## 🚀 Training
 
-Train PACE with the following command:
+Train AirSOAR with the following command:
 
 ```bash
 bash scripts/llm/train_uav_llm.sh
@@ -440,14 +440,14 @@ Pretrained checkpoints will be released at:
 
 | Model           | Dataset       | Link        |
 | --------------- | ------------- | ----------- |
-| PACE-assistant  | UAV-Need-Help | Coming soon |
-| PACE            | UAV-Need-Help | Coming soon |
+| AirSOAR-assistant  | UAV-Need-Help | Coming soon |
+| AirSOAR            | UAV-Need-Help | Coming soon |
 
 After downloading, place checkpoints under:
 
 ```text
 checkpoints/
-└── pace_best.pth
+└── AirSOAR_best.pth
 ```
 
 ---
