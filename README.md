@@ -1,4 +1,4 @@
-# PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation
+# AirSOAR: Self-Correcting Offline Assistance Reasoning for UAV Vision-Language Navigation
 
 <!-- <p align="center">
   <a href="YOUR_PAPER_LINK"><img src="https://img.shields.io/badge/Paper-arXiv-red"></a>
